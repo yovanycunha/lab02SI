@@ -68,8 +68,9 @@ body {
 }
 
 img {
-    max-height: 250px;
-    min-height: 250px;
+    margin-top: 25px;
+    max-height: 270px;
+    min-height: 270px;
     padding: 5px;
     float: both;
 }
@@ -84,4 +85,11 @@ img {
 
 #collapseWatchlist {
     background-color: #C5D0D7;
+}
+
+div#serieTitle {
+    max-height: 20px;
+    min-height: 20px;
+    max-width: 280px;
+    text-align: center;
 }

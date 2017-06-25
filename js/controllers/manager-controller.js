@@ -55,7 +55,7 @@ angular.module("seriesmanager")
             if (!$scope.isThisSerieInMySeries(newSerieInMySeries)) {
                 $scope.mySeries.push(newSerieInMySeries);                
             } else {
-                alert("This serie already is in My Series list!")
+                alert("This show already is in My Profile!")
             }
         };
 
@@ -72,7 +72,6 @@ angular.module("seriesmanager")
                 if (serieIndex !== -1) {
                     $scope.mySeries.splice(serieIndex, 1);
                     $scope.remotionResponse = "";
-                    alert("The serie was removed!")
                 }
             }
         };
@@ -101,8 +100,8 @@ angular.module("seriesmanager")
 
 
         $scope.deleteConfirmation = function (serie) {
-            $scope.remotionResponse = prompt("Type Y to remove " + serie.Title);
-            if ($scope.remotionResponse === 'Y') {
+            $scope.remotionResponse = prompt("Type Delete to remove " + serie.Title);
+            if ($scope.remotionResponse === 'Delete') {
                 return true;
             }
             return false;

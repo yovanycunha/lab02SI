@@ -67,6 +67,9 @@
                             </div>
                             <div class="panel panel-default col-md-3" ng-repeat="serie in series" title="{{serie.Title}}">
                                 <span ng-if="serie.Poster !== N/A ">
+                                <div id="serieTitle">
+                                    {{serie.Title}}
+                                </div>
                                 <a href=""><img class="img-responsive center-block" src="{{serie.Poster}}" alt="{{serie.Title}}"></a>
                                 </span>                           
                                 <div class="btn-group btn-group-justified">
@@ -91,6 +94,9 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="panel panel-default col-md-3" ng-repeat="serie in mySeries" title="{{serie.Title}}">
+                                <div id="serieTitle">
+                                    {{serie.Title}}
+                                </div>
                                 <a ng-click="editThisSerie(serie)" type="button" data-toggle="modal" data-target="#editSerieModal"><img class="img-responsive center-block" src="{{serie.Poster}}" alt="{{serie.Title}}"></a>
                                 <div class="btn-group btn-group-justified">
                                     <a href="" class="btn btn-primary btn-danger" ng-click="removeSerie(serie)">
@@ -117,6 +123,9 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="panel panel-default col-md-3" ng-repeat="serie in watchlist" title="{{serie.Title}}">
+                                <div id="serieTitle">
+                                    {{serie.Title}}
+                                </div>
                                 <a href=""><img class="img-responsive center-block" src="{{serie.Poster}}" alt="{{serie.Title}}"></a>
                                 <div class="btn-group btn-group-justified">
                                     <a href="" class="btn btn-primary" ng-click="addSerieToMySeries(serie)">My Profile</a>
