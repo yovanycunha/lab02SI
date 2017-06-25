@@ -1,0 +1,1 @@
+angular.module("seriesmanager",['ngAnimate', 'appDirectives', 'dataProvider']);

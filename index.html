@@ -1,0 +1,172 @@
+<html ng-app="seriesmanager" lang="pt-br">
+    <head>
+        <title>Mafraboy's Series</title>
+        <meta charset="utf-8">
+        <link rel="icon" href="img/movie.ico">
+        <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">  
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="js/lib/jquery.js"></script>
+        <script src="fonts/glyphicons-halflings-regular"></script>
+        <script src="js/lib/bootstrap.min.js"></script>
+        <script src="js/lib/angular.js"></script>
+        <script src="js/lib/angular-animate.js"></script>
+        <script src="js/lib/angular-route.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/services/manager-service.js"></script>
+        <script src="js/controllers/manager-controller.js"></script>
+        <script src="js/directives/manager-directives.js"></script>        
+
+    </head>
+    <body ng-controller="managerCtrl">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="">{{title}}</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                
+                <ul class="nav navbar-nav">
+                    <li><a href="#" ng-click="clearSearch()">Home<span class="sr-only">(current)</span></a></li>
+                    <li><a href="#watchlist">Watchlist</a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" ng-model="name">
+                    </div>
+                    <button ng-click="searchSeriesByTitle(name)" class="btn">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </form>
+                
+            </div><!-- /.container-fluid -->
+        </nav>
+
+
+        <div class="container">       
+
+            <!-- Search Panel -->
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a href="#collapseSearch" data-toggle="collapse">Search</a>
+                    </div>
+                </div>
+                <div id="collapseSearch" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div>
+                                <span ng-if="(badSearch)">
+                                    <img src="img/nothing_found.jpg" alt="Nothing was found">
+                                </span>
+                            </div>
+                            <div class="panel panel-default col-md-3" ng-repeat="serie in series" title="{{serie.Title}}">                              
+                                <a href=""><img class="img-responsive center-block" src="{{serie.Poster}}" alt="{{serie.Title}}"></a>
+                                <div class="btn-group btn-group-justified">
+                                    <a href="" class="btn btn-primary" ng-click="addSerieToWatchlist(serie)">Watchlist</a>
+                                    <a href="" class="btn btn-primary" ng-click="addSerieToMySeries(serie)">My Series</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- My Series Panel -->
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a href="#collapseMySeries" data-toggle="collapse">My Series</a>
+                    </div>
+                </div>
+                <div id="collapseMySeries" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="panel panel-default col-md-3" ng-repeat="serie in mySeries" title="{{serie.Title}}">
+                                <a ng-click="editThisSerie(serie)" type="button" data-toggle="modal" data-target="#editSerieModal"><img class="img-responsive center-block" src="{{serie.Poster}}" alt="{{serie.Title}}"></a>
+                                <div class="btn-group btn-group-justified">
+                                    <a href="" class="btn btn-primary btn-danger" ng-click="removeSerie(serie)">
+                                        Remove
+                                        <i class="glyphicon glyphicon-trash"></i>    
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Watchlist Panel -->
+            <div class="panel panel-primary">
+                <a name="watchlist"></a>
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a href="#collapseWatchlist" data-toggle="collapse">Watchlist</a>
+                    </div>
+                </div>
+                <div id="collapseWatchlist" class="panel-collapse collapse">                    
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="panel panel-default col-md-3" ng-repeat="serie in watchlist" title="{{serie.Title}}">
+                                <a href=""><img class="img-responsive center-block" src="{{serie.Poster}}" alt="{{serie.Title}}"></a>
+                                <div class="btn-group btn-group-justified">
+                                    <a href="" class="btn btn-primary" ng-click="addSerieToMySeries(serie)">My Series</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+           <!-- Serie Modal -->
+            <div class="modal fade" id="editSerieModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{{serieToBeEdited.Title}}</h4>
+                        </div>
+                    <div class="modal-body">
+                        <div>
+                            <img class="img-responsive center-block" src="{{serieToBeEdited.Poster}}" alt="{{serie.title}}">
+                        </div>
+                        <div>
+                            <ul>
+                                <li>Title: {{serieToBeEdited.Title}}</li>
+                                <li>Plot: {{serieToBeEdited.Plot}}</li>
+                                <li>Rated: {{serieToBeEdited.Rated}}</li>
+                                <li>Rating: {{serieToBeEdited.imdbRating}}</li>
+                            </ul>
+                            <ul>
+                                <li class="input-group">
+                                    <input type="text" placeholder="Last Episode Watched" ng-model="lastEp">
+                                    <a class="btn btn-primary" ng-click="addLastEpWatched(lastEp)">
+                                        <i class="glyphicon glyphicon-ok-circle" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="input-group">
+                                    <input type="text" placeholder="Rate" ng-model="myRate">
+                                    <a class="btn btn-primary" ng-click="addMyRate(myRate)">
+                                        <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" ng-click="saveEditedSerieInMySeries(serieToBeEdited)">Save changes</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+
+        </div>
+    </body>
+</html>
