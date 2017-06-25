@@ -19,9 +19,10 @@ body {
     border-radius: 4px;
 }
 
-.btn.btn-primary.btn-danger:hover {
+.btn.btn-primary.btn-danger {
     background-color: #d9534f;
 }
+
 
 .navbar.navbar-inverse {
     min-height: 7%;
