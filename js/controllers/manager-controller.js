@@ -8,6 +8,7 @@ angular.module("seriesmanager")
         $scope.badSearch = false;
         $scope.remotionResponse = "";
         $scope.serieToBeEdited;
+        $scope.badSearchMessage = "Sorry, nothing was found.\nTry again."
 
 
         $scope.searchSeriesByTitle = function (name) {

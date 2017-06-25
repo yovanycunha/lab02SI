@@ -2,6 +2,10 @@ body {
     background-color: #C5D0D7;
 }
 
+.panel-footer {
+    background-color: #C5D0D7;
+}
+
 .jumbotron {
     text-align: center;
     margin-top: 5px;
@@ -13,6 +17,10 @@ body {
     background-color: #29526D;
     border-color: #C5D0D7;
     border-radius: 4px;
+}
+
+.btn.btn-primary.btn-danger:hover {
+    background-color: #d9534f;
 }
 
 .navbar.navbar-inverse {
